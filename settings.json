@@ -1,0 +1,8 @@
+{
+    "time_interval": 10,
+    "collect_cpu": true,
+    "collect_memory": true,
+    "collect_disk": true,
+    "collect_network": false,
+    "collect_process": false
+}
