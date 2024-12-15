@@ -43,6 +43,18 @@ void internal_commands(int argc, char* args[], bool background)
         {
             status_monitor();
         }
+        else if (strcmp(args[0], "list_config") == 0)
+        {
+            list_configuration_files(args[1]);
+        }
+        else if (strcmp(args[0], "search_config") == 0)
+        {
+            search_config_files_recursively(args[1]);
+        }
+        else if (strcmp(args[0], "read_file") == 0)
+        {
+            read_file_content(args[1]);
+        }
         else
         {
             external_command(args);
@@ -169,4 +181,89 @@ void echo(char* message[])
         i++;
     }
     fprintf(stdout, "\n");
+}
+
+/** --- TP3: Functions Added --- */
+
+void list_configuration_files(char* directory)
+{
+    struct dirent* entry;
+    DIR* dir = opendir(directory);
+
+    if (!dir)
+    {
+        printf("Error: No se puede abrir el directorio %s\n", directory);
+        return;
+    }
+
+    printf("Explorando el directorio: %s en busca de archivos '.config' o '.json'\n", directory);
+
+    while ((entry = readdir(dir)) != NULL)
+    {
+        if (entry->d_type == DT_REG)
+        { // Archivos regulares
+            const char* ext = strrchr(entry->d_name, '.');
+
+            if (ext && (strcmp(ext, ".config") == 0 || strcmp(ext, ".json") == 0))
+            {
+                printf("Archivo de configuración encontrado: %s/%s\n", directory, entry->d_name);
+            }
+        }
+    }
+
+    closedir(dir);
+}
+
+void search_config_files_recursively(char* directory)
+{
+    struct dirent* entry;
+    DIR* dir = opendir(directory);
+
+    if (!dir)
+    {
+        printf("Error: No se puede abrir el directorio %s\n", directory);
+        return;
+    }
+
+    while ((entry = readdir(dir)) != NULL)
+    {
+        if (entry->d_type == DT_DIR)
+        {
+            if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0)
+            {
+                char subpath[1024];
+                snprintf(subpath, sizeof(subpath), "%s/%s", directory, entry->d_name);
+                search_configs_recursively(subpath);
+            }
+        }
+        else if (entry->d_type == DT_REG)
+        {
+            const char* ext = strrchr(entry->d_name, '.');
+            if (ext && (strcmp(ext, ".config") == 0 || strcmp(ext, ".json") == 0))
+            {
+                printf("Archivo de configuración encontrado: %s/%s\n", directory, entry->d_name);
+            }
+        }
+    }
+
+    closedir(dir);
+}
+
+void read_file_content(char* filepath)
+{
+    FILE* file = fopen(filepath, "r");
+    if (!file)
+    {
+        printf("Error: No se puede abrir el archivo %s\n", filepath);
+        return;
+    }
+
+    printf("Contenido de %s:\n", filepath);
+    char line[256];
+    while (fgets(line, sizeof(line), file))
+    {
+        printf("%s", line);
+    }
+    fclose(file);
+    printf("\n");
 }
