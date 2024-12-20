@@ -4,5 +4,9 @@
     "collect_memory": true,
     "collect_disk": true,
     "collect_network": false,
-    "collect_process": false
+    "collect_process": false,
+    "collect_fragmentation": true,
+    "collect_counter_first": true,
+    "collect_counter_best": true,
+    "collect_counter_worst": true
 }

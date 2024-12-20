@@ -217,6 +217,18 @@ cJSON* filtrar_metricas(cJSON* metricas, cJSON* settings)
                               cJSON_Duplicate(cJSON_GetObjectItem(metricas, "context_switches_total"), 1));
     }
 
+    if (cJSON_IsTrue(cJSON_GetObjectItem(settings, "collect_fragmentation")))
+    {
+        cJSON_AddItemToObject(filtrado, "memory_fragmentation",
+                              cJSON_Duplicate(cJSON_GetObjectItem(metricas, "memory_fragmentation"), 1));
+        cJSON_AddItemToObject(filtrado, "policy_counter_first",
+                              cJSON_Duplicate(cJSON_GetObjectItem(metricas, "policy_counter_first"), 1));
+        cJSON_AddItemToObject(filtrado, "policy_counter_best",
+                              cJSON_Duplicate(cJSON_GetObjectItem(metricas, "policy_counter_best"), 1));
+        cJSON_AddItemToObject(filtrado, "policy_counter_worst",
+                              cJSON_Duplicate(cJSON_GetObjectItem(metricas, "policy_counter_worst"), 1));
+    }
+
     return filtrado;
 }
 
