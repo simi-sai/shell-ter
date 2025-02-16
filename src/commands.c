@@ -233,7 +233,7 @@ void search_config_files_recursively(char* directory)
             {
                 char subpath[1024];
                 snprintf(subpath, sizeof(subpath), "%s/%s", directory, entry->d_name);
-                search_configs_recursively(subpath);
+                search_config_files_recursively(subpath);
             }
         }
         else if (entry->d_type == DT_REG)

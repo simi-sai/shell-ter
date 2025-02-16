@@ -2,7 +2,7 @@
  * @file monitor.h
  * @brief This file contains the declaration of the functions that handle the Prometheus monitor.
  */
-#include <cjson/cJSON.h>
+#include <cJSON.h>
 #include <fcntl.h>
 #include <signal.h>
 #include <stdbool.h>

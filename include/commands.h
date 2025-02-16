@@ -3,7 +3,6 @@
  * @brief This file contains the declarations of the functions that handle the commands.
  */
 #include "monitor.h"
-#define __USE_MISC
 #include <dirent.h>
 
 /**
