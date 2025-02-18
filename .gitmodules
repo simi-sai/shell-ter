@@ -1,3 +1,0 @@
-[submodule "monitor_prometheus"]
-	path = monitor_prometheus
-	url = git@github.com:MVene/monitor_prometheus.git
