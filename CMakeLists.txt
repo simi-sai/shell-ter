@@ -12,7 +12,7 @@ set(CMAKE_C_FLAGS_DEBUG "-g3 -O0 -Wall -Wpedantic -Werror -Wextra -Wconversion -
 include_directories(include)
 
 # Add the monitoring executable
-add_subdirectory(monitor_prometheus)  # Agrega esta línea para incluir el directorio de monitoreo
+# add_subdirectory(monitor_prometheus)  # Agrega esta línea para incluir el directorio de monitoreo
 
 # Add executable
 file(GLOB SRC_FILES src/*.c)

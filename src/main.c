@@ -38,7 +38,7 @@ int main(int argc, char* argv[])
         }
     }
 
-    while (true)
+    while (1)
     {
         manage_signals();
         get_command();
